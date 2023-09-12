@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  drupal:
+    build: .
+    image: dvwhite81/custom-drupal
+    ports:
+      - "8080:80"
+  postgres:
+    # Changing the drupal version in Dockerfile
+    # caused postgres:9.6 to not work.
+    # Both working now
+    image: postgres:10
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-data:
